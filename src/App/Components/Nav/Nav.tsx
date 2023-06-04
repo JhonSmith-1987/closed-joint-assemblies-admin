@@ -1,14 +1,29 @@
 import {JSX} from "react";
-import {HomeStyled} from "./Home.Styled";
+import {NavStyled} from "./NavStyled";
+import CircularImage from "../CircularImage/CircularImage";
+import {Link} from "react-router-dom";
 
-export interface IHomeScreenProps {
+export interface INavProps {
     title?:string;
 }
 
-export default function Hcreen({title}:IHomeScreenProps):JSX.Element {
+export default function Nav({title}:INavProps):JSX.Element {
     return (
-        <HomeStyled>
-            <h1>Home</h1>
-        </HomeStyled>
+        <NavStyled>
+            <CircularImage
+                src="/img/bosquejo.png"
+                height="2rem"
+                externalBackground="blue"
+                internalBackground="#fff"
+            />
+            <ul>
+                <li>Asistencia</li>
+                <li>Votación</li>
+                <li>Consulta votación</li>
+                <Link to="/home/client">
+                    <li>Clientes</li>
+                </Link>
+            </ul>
+        </NavStyled>
     );
 }

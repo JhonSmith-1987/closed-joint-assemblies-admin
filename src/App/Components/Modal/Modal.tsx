@@ -1,21 +1,15 @@
 import {JSX} from "react";
-import {ButtonStyled} from "./ButtonStyled";
-import { Button } from '@material-ui/core';
+import {ModalStyled} from "./ModalStyled";
 
 export type colorType = 'default' | 'inherit' | 'primary' | 'secondary';
-export interface IButtonProps {
+export interface IModalProps {
     title?:string;
-    onClick: (e:any) => void;
-    text: string;
-    color:colorType;
 }
 
-export default function ButtonComponent({title, onClick,text,color}:IButtonProps):JSX.Element {
+export default function Modal({title}:IModalProps):JSX.Element {
     return (
-        <ButtonStyled>
-            <Button variant="contained" color={color} onClick={onClick}>
-                {text}
-            </Button>
-        </ButtonStyled>
+        <ModalStyled>
+
+        </ModalStyled>
     );
 }

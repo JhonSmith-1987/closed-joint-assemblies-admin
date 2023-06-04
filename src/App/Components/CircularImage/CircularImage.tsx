@@ -1,21 +1,28 @@
 import {JSX} from "react";
-import {NavStyled} from "./NavStyled";
+import {CircularImageStyled} from "./CircularImageStyled";
 
-export interface INavProps {
-    title?:string;
+export interface ICircularImageProps {
+    src:string;
+    height:string;
+    externalBackground:string;
+    internalBackground:string;
 }
 
-export default function Nav({title}:INavProps):JSX.Element {
+export default function CircularImage({
+      src,
+      height,
+      externalBackground,
+      internalBackground
+}:ICircularImageProps):JSX.Element {
     return (
-        <NavStyled>
-            <div className="content-img">
-                <img src="/img/bosquejo.png"/>
+        <CircularImageStyled
+            height={height}
+            externalBackground={externalBackground}
+            internalBackground={internalBackground}>
+
+            <div className="inner-circle">
+                <img src={src}/>
             </div>
-            <ul>
-                <li>Asistencia</li>
-                <li>Votación</li>
-                <li>Consulta votación</li>
-            </ul>
-        </NavStyled>
+        </CircularImageStyled>
     );
 }

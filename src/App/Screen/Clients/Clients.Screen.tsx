@@ -1,31 +1,40 @@
-import {JSX} from "react";
-import {HomeStyled} from "./Home.Styled";
-import Nav from "../../Components/Nav/Nav";
-import Table from "../../Components/Table/Table";
-import {Route, Switch} from "react-router-dom";
+import {JSX, useEffect} from "react";
+import {ClientsStyled} from "./ClientsStyled";
+import {Client} from "../../Utils/Entities/Clients";
+import TableComponent from "../../Components/TableComponent/TableComponent";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../Redux/Reducers/RootReducer";
+import {getClients} from "../../Utils/Apis/GetClients";
+import {fetchClientsSuccess} from "../../Redux/Actions/ClientsActions";
 
-export interface IHomeScreenProps {
-    title?:string;
+export interface IClientsScreenProps {
+    onclick:(e:string) => void;
 }
 
-export default function HomeScreen({title}:IHomeScreenProps):JSX.Element {
+export default function ClientsScreen({onclick}: IClientsScreenProps): JSX.Element {
 
-    const data = [
-        { id: 1, name: 'John Doe', age: 25 },
-        { id: 2, name: 'Jane Smith', age: 30 },
-        { id: 3, name: 'Bob Johnson', age: 35 },
-    ];
+    const distpatch = useDispatch();
+    const clients = useSelector((state:RootState) => state.clients);
 
-    const columns = ['ID', 'Name', 'Age'];
+    useEffect(() => {
+        getClients().then((res) => {
+            if (res !== undefined) {
+                distpatch(fetchClientsSuccess(res));
+            }
+        });
+    }, [distpatch]);
+
 
     return (
-        <HomeStyled>
-            <Nav/>
-            <div className="content">
-                <Switch>
-                    <Route path="/home/client"/>
-                </Switch>
-            </div>
-        </HomeStyled>
+        <ClientsStyled>
+            <TableComponent
+                color="primary"
+                text="Crear cliente"
+                clients={clients}
+                onclick={onclick}
+                tableType="client"
+                title="Clientes"
+            />
+        </ClientsStyled>
     );
 }

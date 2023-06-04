@@ -1,36 +1,29 @@
 import styled from "styled-components";
 
-export const NavStyled = styled.div `
+export interface ICircularLogoStyledProps {
+    height:string;
+    externalBackground:string;
+    internalBackground:string;
+}
+
+export const CircularImageStyled = styled.div<ICircularLogoStyledProps> `
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
-  width: 20%;
-  height: 100vh;
-  border-radius: 32px;
-  border: 1px solid #61dafb;
+  padding: .19rem;
+  background: ${(props)=> props.externalBackground};
+  border-radius: 50%;
   
-  .content-img {
+  .inner-circle {
+    background: ${(props) => props.internalBackground};
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: .6rem;
-    border: 1px solid blue;
+    padding: .5rem;
     border-radius: 50%;
-
+    
     img {
-      height: 4rem;
+      height: ${(props) => props.height};
     }
   }
-  ul {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: center;
-    gap: .5rem;
-    list-style: none;
-  }
-  
-  
 `

@@ -1,29 +1,21 @@
 import {JSX} from "react";
-import {NavStyled} from "./NavStyled";
-import CircularImage from "../CircularImage/CircularImage";
-import {Link} from "react-router-dom";
+import {ButtonStyled} from "./ButtonStyled";
+import { Button } from '@material-ui/core';
 
-export interface INavProps {
+export type colorType = 'default' | 'inherit' | 'primary' | 'secondary';
+export interface IButtonProps {
     title?:string;
+    onClick: (e:any) => void;
+    text: string;
+    color:colorType;
 }
 
-export default function Nav({title}:INavProps):JSX.Element {
+export default function ButtonComponent({title, onClick,text,color}:IButtonProps):JSX.Element {
     return (
-        <NavStyled>
-            <CircularImage
-                src="/img/bosquejo.png"
-                height="2rem"
-                externalBackground="blue"
-                internalBackground="#fff"
-            />
-            <ul>
-                <li>Asistencia</li>
-                <li>Votación</li>
-                <li>Consulta votación</li>
-                <Link to="/home/client">
-                    <li>Clientes</li>
-                </Link>
-            </ul>
-        </NavStyled>
+        <ButtonStyled>
+            <Button variant="contained" color={color} onClick={onClick}>
+                {text}
+            </Button>
+        </ButtonStyled>
     );
 }

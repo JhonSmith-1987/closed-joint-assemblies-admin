@@ -4,6 +4,11 @@ export interface ITableStyledProps {
 
 }
 
-export const TableStyled = styled.div<ITableStyledProps> `
+export const TableComponentStyled = styled.div<ITableStyledProps> `
+  width: 100%;
   
+  .content-table {
+    width: 90%;
+    margin: auto;
+  }
 `

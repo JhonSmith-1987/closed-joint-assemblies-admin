@@ -11,14 +11,16 @@ import {
 } from "@material-ui/core";
 import {Client} from "../../Utils/Entities/Clients";
 import ButtonComponent, {colorType} from "../Button/Button";
+import {TableComponentStyled} from "./TableComponentStyled";
 
 export type tableType = 'client';
 
 interface TableProps {
-    onclick: (e: any) => void;
+    onclick: (e:string) => void;
     clients: Client[];
     text: string;
     color: colorType;
+    title: string
     tableType: tableType;
 }
 
@@ -28,13 +30,14 @@ const TableComponent: React.FC<TableProps> = ({
                                                   text,
                                                   color,
                                                   tableType,
+                                                  title,
                                               }) => {
     const [tableData, setTableData] = useState<Client[]>([]);
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
     const [searchQuery, setSearchQuery] = useState('');
 
-    console.log(tableData);
+
     const filteredData = tableData.filter((item) =>
         item.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -53,20 +56,20 @@ const TableComponent: React.FC<TableProps> = ({
     }, [clients]);
 
     return (
-        <div className="content-table">
-            <h1>Clientes</h1>
-            <div className="content-search">
-                <TextField
-                    label="Buscar clientes"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <ButtonComponent onClick={onclick} text={text} color={color}/>
-            </div>
-            <TableContainer>
-                <Table>
-                    <TableHead>
-                        {tableType === 'client' ?
+        <TableComponentStyled>
+            <div className="content-table">
+                <h1>{title}</h1>
+                <div className="content-search">
+                    <TextField
+                        label="Buscar clientes"
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                    <ButtonComponent onClick={()=>onclick(title)} text={text} color={color}/>
+                </div>
+                <TableContainer>
+                    <Table>
+                        <TableHead>
                             <TableRow>
                                 <TableCell>Nombre</TableCell>
                                 <TableCell>Nit</TableCell>
@@ -74,36 +77,35 @@ const TableComponent: React.FC<TableProps> = ({
                                 <TableCell>Departamento</TableCell>
                                 <TableCell>Ciudad</TableCell>
                                 <TableCell>Email</TableCell>
-                            </TableRow> :
-                            <div></div>
-                        }
-                    </TableHead>
-                    <TableBody>
-                        {filteredData
-                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                            .map((row) => (
-                                <TableRow key={row.id}>
-                                    <TableCell>{row.name}</TableCell>
-                                    <TableCell>{row.cc_nit}</TableCell>
-                                    <TableCell>{row.address}</TableCell>
-                                    <TableCell>{row.department}</TableCell>
-                                    <TableCell>{row.city}</TableCell>
-                                    <TableCell>{row.email}</TableCell>
-                                </TableRow>
-                            ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-            <TablePagination
-                rowsPerPageOptions={[10, 25, 50]}
-                component="div"
-                count={filteredData.length}
-                rowsPerPage={rowsPerPage}
-                page={page}
-                onPageChange={handleChangePage}
-                onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-        </div>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {filteredData
+                                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                .map((row) => (
+                                    <TableRow key={row.id}>
+                                        <TableCell>{row.name}</TableCell>
+                                        <TableCell>{row.cc_nit}</TableCell>
+                                        <TableCell>{row.address}</TableCell>
+                                        <TableCell>{row.department}</TableCell>
+                                        <TableCell>{row.city}</TableCell>
+                                        <TableCell>{row.email}</TableCell>
+                                    </TableRow>
+                                ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+                <TablePagination
+                    rowsPerPageOptions={[10, 25, 50]}
+                    component="div"
+                    count={filteredData.length}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onPageChange={handleChangePage}
+                    onRowsPerPageChange={handleChangeRowsPerPage}
+                />
+            </div>
+        </TableComponentStyled>
     );
 }
 export default TableComponent;

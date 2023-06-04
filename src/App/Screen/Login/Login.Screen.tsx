@@ -1,14 +1,14 @@
 import {JSX} from "react";
-import {HomeStyled} from "./Home.Styled";
+import {LoginStyled} from "./Login.Styled";
 
-export interface IHomeScreenProps {
+export interface ILoginScreenProps {
     title?:string;
 }
 
-export default function HomeScreen({title}:IHomeScreenProps):JSX.Element {
+export default function LoginScreen({title}:ILoginScreenProps):JSX.Element {
     return (
-        <HomeStyled>
-
-        </HomeStyled>
+        <LoginStyled>
+            <h1>Login</h1>
+        </LoginStyled>
     );
 }
